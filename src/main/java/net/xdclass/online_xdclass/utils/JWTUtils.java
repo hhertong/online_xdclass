@@ -20,6 +20,7 @@ public class JWTUtils {
     /**
      * 过期时间，一周
      */
+
     private  static final long EXPIRE = 60000 * 60 * 24 * 7;
 
 

@@ -70,6 +70,9 @@
 
 
     </select>
-    
+    <select id="findById" resultType="net.xdclass.online_xdclass.model.entity.Video">
+        select * from video where id=#{video_id}
+    </select>
+
 
 </mapper>

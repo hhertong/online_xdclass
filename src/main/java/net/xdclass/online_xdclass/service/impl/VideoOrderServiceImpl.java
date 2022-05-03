@@ -9,9 +9,11 @@ import net.xdclass.online_xdclass.model.entity.VideoOrder;
 import net.xdclass.online_xdclass.service.VideoOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,6 +44,7 @@ public class VideoOrderServiceImpl implements VideoOrderService {
      * @return
      */
     @Override
+    @Transactional
     public int save(int userid, int videoId) {
 
         //判断是否已经购买
@@ -92,5 +95,16 @@ public class VideoOrderServiceImpl implements VideoOrderService {
 
 
         return rows;
+    }
+
+    /**
+     * 查询订单列表
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<VideoOrder> listOrderByUserId(Integer userId) {
+
+        return videoOrderMapper.listOrderByUserId(userId);
     }
 }

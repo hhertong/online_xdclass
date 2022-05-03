@@ -5,6 +5,8 @@ import net.xdclass.online_xdclass.model.entity.VideoOrder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface VideoOrderMapper {
 
@@ -24,6 +26,10 @@ public interface VideoOrderMapper {
      */
     int saveOrder(VideoOrder videoOrder);
 
-
-
+    /**
+     * 订单列表
+     * @param userId
+     * @return
+     */
+    List<VideoOrder> listOrderByUserId(@Param("user_id") Integer userId);
 }

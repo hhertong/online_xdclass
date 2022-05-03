@@ -16,8 +16,9 @@
             resultType="net.xdclass.online_xdclass.model.entity.VideoOrder">
         select * from video_order where user_id=#{user_id} and video_id=#{video_id} and state=#{state}
     </select>
-
-
+    <select id="listOrderByUserId" resultType="net.xdclass.online_xdclass.model.entity.VideoOrder">
+        select * from video_order where user_id=#{user_id} order by create_time desc
+    </select>
 
 
 </mapper>

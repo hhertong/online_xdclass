@@ -1,14 +1,15 @@
 package net.xdclass.online_xdclass.service.impl;
 
-import net.xdclass.online_xdclass.mapper.UserMapper;
-import net.xdclass.online_xdclass.mapper.VideoMapper;
-import net.xdclass.online_xdclass.mapper.VideoOrderMapper;
+import net.xdclass.online_xdclass.exception.XDException;
+import net.xdclass.online_xdclass.mapper.*;
+import net.xdclass.online_xdclass.model.entity.Episode;
+import net.xdclass.online_xdclass.model.entity.PlayRecord;
 import net.xdclass.online_xdclass.model.entity.Video;
 import net.xdclass.online_xdclass.model.entity.VideoOrder;
 import net.xdclass.online_xdclass.service.VideoOrderService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Date;
 import java.util.UUID;
@@ -26,6 +27,13 @@ public class VideoOrderServiceImpl implements VideoOrderService {
 
     @Autowired
     private VideoMapper videoMapper;
+
+    @Autowired
+    private EpisodeMapper episodeMapper;
+
+    @Autowired
+    private PlayRecordMapper playRecordMapper;
+
 
     /**
      * 下单操作
@@ -58,6 +66,29 @@ public class VideoOrderServiceImpl implements VideoOrderService {
 
 
         int rows = videoOrderMapper.saveOrder(newVideoOrder);
+
+        /**
+         * 生成播放记录
+         */
+        if (rows == 1){
+
+            Episode firstEpisodeByVideoId = episodeMapper.findFirstEpisodeByVideoId(videoId);
+
+            if (firstEpisodeByVideoId==null){
+
+                throw new XDException(-1,"视频没有集信息");
+
+            }
+            PlayRecord playRecord=new PlayRecord();
+
+            playRecord.setCreateTime(new Date());
+            playRecord.setVideoId(videoId);
+            playRecord.setEpisodeId(firstEpisodeByVideoId.getVideoId());
+            playRecord.setCurrentNum(firstEpisodeByVideoId.getNum());
+            playRecord.setUserId(userid);
+            playRecordMapper.saveRecord(playRecord);
+
+        }
 
 
         return rows;

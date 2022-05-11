@@ -6,10 +6,7 @@ import net.xdclass.online_xdclass.model.request.VideoOrderRequest;
 import net.xdclass.online_xdclass.service.VideoOrderService;
 import net.xdclass.online_xdclass.utils.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/pri/order")
+@CrossOrigin
 public class VideoOrderController {
 
     @Autowired

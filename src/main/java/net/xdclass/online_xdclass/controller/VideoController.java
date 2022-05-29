@@ -18,6 +18,14 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
 
+    @Autowired
+    private 
+
+
+
+
+
+
 
     /**
      * 轮播图列表
